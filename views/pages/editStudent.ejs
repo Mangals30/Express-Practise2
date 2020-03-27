@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <%- include('../partials/navbar') %>
+<h1>Edit Student</h1>
+<div>
+    <form action="/students/edited/<%= student.id %>" method="POST">
+        <div>
+            <label for="firstName">First Name</label>
+            <input
+             type="text"
+             id="firstName"
+             name="firstName"
+             value = "<%= student.firstName%>"
+             placeholder="First Name"
+            />
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input
+             type="text"
+             id="lastName"
+             name="lastName"
+             value = "<%= student.lastName%>"
+             placeholder="Last Name"
+            />
+        </div>
+        <div>
+            <label for="age">Age</label>
+            <input
+             type="text"
+             id="age"
+             name="age"
+             value = "<%= student.age%>"
+             placeholder="Age"
+            />
+        </div>
+        <div>
+            <label for="country">Country</label>
+            <input
+             type="text"
+             ="country"
+             name="country"
+             value = "<%= student.country%>"
+             placeholder="Country"
+            />
+        </div>
+        <div>
+            <label for="skills">Skills</label>
+            <input
+             type="text"
+             name="skills"
+             value = "<%= student.skills%>"
+             placeholder="Skills"
+            />
+        </div>
+        <div>
+            <button type = 'submit'>Save</button>
+            <button onclick="location.href = '/students/edited/<%= student.id %>'">Cancel</button>
+        </div>
+    </form>
+</div>
+</body>
+<%- include('../partials/footer') %>
+</html>

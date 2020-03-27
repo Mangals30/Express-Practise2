@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <%- include('../partials/navbar') %>
+<h1>Add Student</h1>
+<div>
+    <form action="/v1/students" method="POST">
+        <div>
+            <label for="firstName">First Name</label>
+            <input
+             type="text"
+             id="firstName"
+             name="firstName"
+             placeholder="First Name"
+            />
+        </div>
+        <div>
+            <label for="lastName">Last Name</label>
+            <input
+             type="text"
+             id="lastName"
+             name="lastName"
+             placeholder="Last Name"
+            />
+        </div>
+        <div>
+            <label for="age">Age</label>
+            <input
+             type="text"
+             id="age"
+             name="age"
+             placeholder="Age"
+            />
+        </div>
+        <div>
+            <label for="country">Country</label>
+            <input
+             type="text"
+             ="country"
+             name="country"
+             placeholder="Country"
+            />
+        </div>
+        <div>
+            <label for="skills">Skills</label>
+            <input
+             type="text"
+             name="skills"
+             placeholder="Skills"
+            />
+        </div>
+        <div>
+            <button type = 'submit'>Add</button>
+        </div>
+    </form>
+</div>
+</body>
+<%- include('../partials/footer') %>
+</html>

@@ -4,32 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/styles/main.css">
+    
     <title>Home</title>
 </head>
 <body>
-    <ul>
-        <li>
-            <a href="/">Home</a>
-        </li>
-        <li>
-            <a href="/about">About</a>
-        </li>
-        <li>
-            <a href="/contact">Contact</a>
-        </li>
-        <li>
-            <a href="/text">Text Data</a>
-        </li>
-        <li>
-            <a href="/students/api">Students API</a>
-        </li>
-        <li>
-            <a href="/students">Students</a>
-        </li>
-    </ul>
+    <%- include('../partials/navbar') %>
     <h1>Home Sweet Home</h1>
     <img src = '/assets/images/css_logo.png' alt = 'css logo' />
     <img src = '/assets/images/html_logo.png' alt = 'html logo' />
     <img src = '/assets/images/js_logo.png' alt = 'js logo' />
 </body>
+<%- include('../partials/footer') %>
 </html>

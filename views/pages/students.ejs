@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <title>Students</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>Students information</h1>
+    <button onclick= "location.href='/add-student'">Add Student</button>
+    <div>
+        <% students.forEach(function (student) {%>
+            <div>
+                <a href="/students/<%= student.id %>">
+            <h2>
+                <%= student.firstName %>
+                <%= student.lastName %>
+            </h2>
+            <p>
+               <%= student.age %>
+            </p>
+            <p>
+               <%= student.country %>
+            </p>
+            <p>
+               <%= student.skills.join(', ') %>
+            </p>
+           <%})
+           
+           %>
+           </a>
+           </div>
+
+    </div>
+    
+    
+    
+</body>
+<%- include('../partials/footer') %>
+</html>

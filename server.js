@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 5000
 let {students} = require('./views/students')
 const fs = require('fs')
 const os = require('os')
@@ -8,8 +8,12 @@ const {dateToday} = require('./views/date')
 const bodyParser = require('body-parser')
 const ejs = require('ejs')
 
+
+
 app.use(express.static('public'))
+//app.use(express.json())
 app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
 app.use((req,res,next) => {
     const user = os.hostname
@@ -19,27 +23,36 @@ app.use((req,res,next) => {
         if(err) {
             throw(err)
         }
-        console.log('file appended')
     })
     next()
 })
 
 app.get('/', (req,res) => {
-  res.render('index')
+  res.render('pages/index')
 })
-app.get('/students', (req,res) => {
-    res.render('students', {students})
+  app.get('/students', (req,res) => {
+    res.render('pages/students', {students})
   })
+  
+  app.get('/add-student',(req,res) => {
+    res.render('pages/addStudent')
+  })
+
+  app.get('/students/:id',(req,res) => {
+    const id = req.params.id
+    const student= students.find(student => student.id== id)
+    res.render('pages/student',{student})
+  }) 
+
+
 app.get('/about', (req,res) => {
-    res.sendFile(__dirname + '/views/about.html')
+    res.render('pages/about')
   })
   app.get('/contact', (req,res) => {
-    res.sendFile(__dirname + '/views/contact.html')
+    res.render('pages/contact')
   })
-  app.get('/text', (req,res) => {
-    res.sendFile(__dirname + '/views/text.txt')
-  })
-  app.get('/students/api', (req,res) => {
+  
+  app.get('/api/students', (req,res) => {
       if(students.length > 0) {
         res.send(students)
       }
@@ -50,46 +63,53 @@ app.get('/about', (req,res) => {
   app.get('/students/api/:id',(req,res) => {
       const id = req.params.id
       const student = students.find(student => student.id == id || student.firstName.toLowerCase() == id.toLowerCase())
-      if(student) {
+      if(Object.entries(student).length>0) {
         res.send(student)
       }
       else {
        res.send('Student does not exist') 
      } 
   })
-  app.post('/students/api',(req,res) => {
+  app.post('/v1/students',(req,res) => {
+      console.log(req.body)
       const allIds = students.map(student => student.id)
       let maxId = Math.max(...allIds)
       const id = maxId+1
       req.body.id = id
+      req.body.skills = req.body.skills.split(', ')
       students.push(req.body)
-      res.send('A data has been added')
+      res.redirect('/students')
+      //res.sendFile(__dirname + '/views/studentAdded.html')
   }) 
-  app.put('/students/api/:id',(req,res) => {
+  app.post('/students/edited/:id',(req,res) => {
+    console.log(req.body)
+    const id = req.params.id
+    const student = students.find(student => student.id ==id)
+    if(Object.entries(student).length > 0) {
+      student.firstName = req.body.firstName
+      student.lastName = req.body.lastName
+      student.country = req.body.country
+      student.skills = req.body.skills.split(', ')
+    }
+    res.redirect(`/students/${student.id}`)
+  })
+  app.get('/student/:id/edit',(req,res) => {
       let id = req.params.id
-      const editedStudent = students.filter(student => student.id == id)
-      if(editedStudent.length) {
-        students = students.map(student => {
-            if(student.id == id) {
-                req.body.id = +id
-                return req.body
-            }
-            
-            return student
-        })
-        res.send('Student edited')
+      const student = students.find(student => student.id == id)
+      if(Object.entries(student).length>0) {
+        
+        res.render('pages/editStudent',{student})
       }
       else {
           res.send('Student doesnot exist to edit')
       }
   })
-  app.delete('/students/api/:id',(req,res) => {
+  app.get('/student/:id/delete',(req,res) => {
       const id = req.params.id
-      const deletedStudent = students.filter(student => student.id == id)
-      if(deletedStudent.length)
+      students = students.filter(student => student.id!=id)
+      if(students.length)
       {
-        students = students.filter(student => student.id!=id)
-        res.send('Data deleted')
+        res.redirect('/students')
       }
       else {
         res.send('Student does not exist to delete')
@@ -100,3 +120,8 @@ app.get('/about', (req,res) => {
 app.listen(PORT, () => {
     console.log(`The server is running in port ${PORT}`)
 })
+
+
+
+
+

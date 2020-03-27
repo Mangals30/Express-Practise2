@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assets/styles/main.css">
+    <title>Students</title>
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <h1>Student</h1>
+    <div>
+        <% if (student) {%>
+            <h2>
+                <%= student.firstName %>
+                <%= student.lastName %>
+            </h2>
+            <p>
+               <%= student.age %>
+            </p>
+            <p>
+               <%= student.country %>
+            </p>
+            <p>
+               <%= student.skills.join(', ') %>
+            </p>
+            <div>
+                <button onclick="location.href = '/student/<%= student.id %>/edit'">Edit</button>
+                <button onclick="location.href = '/student/<%= student.id %>/delete'">Delete</button>
+            </div>
+           <%}
+           
+           %>
+           
+
+    </div>
+    
+    
+    
+</body>
+<%- include('../partials/footer') %>
+</html>

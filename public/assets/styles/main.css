@@ -1,13 +1,37 @@
 body {
-    background-color: orangered;
+    background-color: rgb(214, 140, 113);
+    text-align: center;
 }
 li {
     display: inline;
 }
 a {
     text-decoration: none;
+    color: black;
 }
 img {
     width: 20rem;
     height : 20rem
+}
+footer {
+    margin-top: 20rem;
+    bottom: 0;
+    height: 2rem;
+    background: rgb(183, 161, 204);
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+header {
+    background: rgb(183, 161, 204);
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    justify-content: center;
+    word-spacing: 1rem;
+    color: black;
+}
+
 }
